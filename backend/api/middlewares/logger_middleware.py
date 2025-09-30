@@ -4,10 +4,12 @@ from fastapi import Request, Response
 from starlette.middleware.base import BaseHTTPMiddleware
 
 
+
 class LoggerMiddleware(BaseHTTPMiddleware):
     async def dispatch(
         self, request: Request, call_next: Callable[[Request], Any]
     ) -> Response:
+        
         """
         Logs all incoming and outgoing request, response pairs. This method logs the request params,
         datetime of request, duration of execution. Logs should be printed using the custom logging module provided.

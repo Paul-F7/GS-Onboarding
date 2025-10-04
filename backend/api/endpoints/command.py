@@ -48,12 +48,11 @@ def delete_command(id: int, db: Session = Depends(get_db)):
     """
     
     command_to_delete = db.get(Command, id)
+    
     if not command_to_delete:
         raise HTTPException(status_code=404, detail="Command not found")
     else:
-        command_to_delete = db.get(Command, id)
         db.delete(command_to_delete)
         db.commit()
-        commands = db.exec(select(Command)).all()
-        return {"data": commands}
+        return get_commands(db)
     # TODO:(Member) Implement this endpoint
